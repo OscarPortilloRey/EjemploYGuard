@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module
+ xmlns="urn:ebx-schemas:module_2.4"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="urn:ebx-schemas:module_2.4
+                     http://schema.orchestranetworks.com/module_2.4.xsd">
+  <name>simple-moduloebx</name>
+  <publicPath>simple-moduloebx</publicPath>
+  
+    <beans>
+     <bean className="com.alldatum.ebx.ejemplos.Scripts.A">
+       <documentation xml:lang="en-US">
+       <label>Generar Saludo!.</label>
+       </documentation>   
+       
+       <properties>
+        <property name="B" input="true">
+             <documentation xml:lang="en-US">
+            <label>Nombre</label>
+           </documentation>
+        </property>
+       
+        <property name="A" input="true">
+             <documentation xml:lang="en-US">
+            <label>Edad</label>
+           </documentation>
+        </property>
+       
+     
+        <property name="D" output="true">
+          <documentation xml:lang="en-US">
+          <label>Saludo</label>
+          </documentation>
+        
+        </property>
+        
+        
+       </properties>
+     
+     </bean>
+  </beans>
+</module>
+                      
