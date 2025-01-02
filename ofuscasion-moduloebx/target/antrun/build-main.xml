@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main">
+  <property name="project.jar" value="C:\Users\allda\OneDrive\Documentos\EclipseOscar\Proyectos\ofuscasion-moduloebx\target/ofuscasion-moduloebx-0.0.1-SNAPSHOT.jar"/>
+  <property name="project.jar.unobf" value="C:\Users\allda\OneDrive\Documentos\EclipseOscar\Proyectos\ofuscasion-moduloebx\target/ofuscasion-moduloebx-0.0.1-SNAPSHOT_unobf.jar"/>
+  <move file="${project.jar}" tofile="${project.jar.unobf}" verbose="true"/>
+  <property name="runtime_classpath" refid="maven.runtime.classpath"/>
+  <taskdef classname="com.yworks.yguard.YGuardTask" classpath="${runtime_classpath}" name="yguard"/>
+  <yguard>
+    <inoutpair in="${project.jar.unobf}" out="${project.jar}"/>
+    <rename logfile="C:\Users\allda\OneDrive\Documentos\EclipseOscar\Proyectos\ofuscasion-moduloebx\target/ofuscasion-moduloebx-0.0.1-SNAPSHOT_renamelog.xml">
+      <keep>
+        <class>
+          <patternset>
+            <include name="com.alldatum.ebx.ejemplos.RegistrationServlet*"/>
+          </patternset>
+        </class>
+      </keep>
+    </rename>
+  </yguard>
+</target>
+</project>

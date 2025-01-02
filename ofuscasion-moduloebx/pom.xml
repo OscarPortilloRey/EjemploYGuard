@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>alldatum</groupId>
+  <artifactId>ofuscasion-moduloebx</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>ofuscasion-moduloebx</name>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20231013</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.yworks</groupId>
+			<artifactId>yguard</artifactId>
+			<version>4.1.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>com.yworks</groupId>
+			<artifactId>annotation</artifactId>
+			<version>4.1.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Dependencia para ebx.jar -->
+		<dependency>
+			<groupId>com.ejemplo</groupId>
+			<artifactId>ebx</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Dependencia para javax.servlet-api-4.0.1.jar -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+	
+	
+	
+	
+	
+	</dependencies>
+	
+	
+   <build>
+    <plugins>
+			<!-- Plugin para ejecutar tareas de Ant -->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.8</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<id>obfuscate</id>
+						<configuration>
+							<tasks>
+								<property
+									name="project.jar"
+									value="${project.build.directory}/${project.build.finalName}.jar" />
+								<property
+									name="project.jar.unobf"
+									value="${project.build.directory}/${project.build.finalName}_unobf.jar" />
+								<move
+									file="${project.jar}"
+									tofile="${project.jar.unobf}"
+									verbose="true" />
+
+								<property
+									name="runtime_classpath"
+									refid="maven.runtime.classpath" />
+								<taskdef
+									name="yguard"
+									classname="com.yworks.yguard.YGuardTask"
+									classpath="${runtime_classpath}" />
+								<yguard>
+									<inoutpair in="${project.jar.unobf}"
+										out="${project.jar}" />
+
+									<rename
+										logfile="${project.build.directory}/${project.build.finalName}_renamelog.xml">
+										<keep>
+											<class>
+												<patternset>
+													<include
+														name="com.alldatum.ebx.ejemplos.RegistrationServlet*" />
+
+
+												</patternset>
+											</class>
+
+
+										</keep>
+									</rename>
+								</yguard>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+
+  
+</project>
